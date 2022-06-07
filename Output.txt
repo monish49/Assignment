@@ -1,0 +1,33 @@
+(python code)
+
+import asyncio
+from aiohttp import ClientSession
+
+
+async def word(url, n):
+
+    async with ClientSession() as session:
+        async with session.get(url) as response:
+            response = await response.read()
+            my_HTML = response.decode("utf8")
+            splitted = my_HTML.split()
+
+    for word in splitted[0:n]:
+        print(word+' ' + f' appears {splitted.count(word)} time(s)')
+
+
+asyncio.run(word('http://norvig.com/big.txt', 10))
+
+
+(Output)
+
+The  appears 6149 time(s)
+Project  appears 205 time(s)
+Gutenberg  appears 78 time(s)
+EBook  appears 5 time(s)
+of  appears 39169 time(s)
+The  appears 6149 time(s)
+Adventures  appears 2 time(s)
+of  appears 39169 time(s)
+Sherlock  appears 95 time(s)
+Holmes  appears 198 time(s)
